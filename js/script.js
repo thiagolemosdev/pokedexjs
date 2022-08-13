@@ -33,7 +33,8 @@ const fetchPokemon = async (pokemon) => {
 
 const renderPokemon = async (pokemon) => {
   // criando função para renderizar os dados do pokemon
-
+  pokemonImage.src =
+    "https://pa1.narvii.com/6618/792033cfa9e0199d425108ae0b9a111f624107c1_hq.gif";
   pokemonName.innerHTML = "Loading...";
   pokemonNumber.innerHTML = "";
   // o que demora é o fetch, então colocamos um load enquanto carrega
