@@ -3,6 +3,8 @@ const pokemonName = document.querySelector(".pokemon__name");
 const pokemonImage = document.querySelector(".pokemon__image");
 const searchPokemon = document.querySelector(".input__search");
 const form = document.querySelector(".form");
+const nextButton = document.querySelector(".btn-next");
+const prevButton = document.querySelector(".btn-prev");
 // pegando os elementos do DOM que serao alterados
 
 const fetchPokemon = async (pokemon) => {
@@ -18,27 +20,43 @@ const fetchPokemon = async (pokemon) => {
     // Passando o endereço do fetch e passando a variavel e minusculo
   );
 
-  const data = await APIResponse.json();
-  // transformando os dados do APIResponse em json
-  // mesma coisa, .json é assincrono então usamos o await para ele esperar
+  if (APIResponse.status === 200) {
+    // se o status do response for 200 (success)
 
-  return data;
+    const data = await APIResponse.json();
+    // transformando os dados do APIResponse em json
+    // mesma coisa, .json é assincrono então usamos o await para ele esperar
+
+    return data;
+  }
 };
 
 const renderPokemon = async (pokemon) => {
   // criando função para renderizar os dados do pokemon
 
+  pokemonName.innerHTML = "Loading...";
+  pokemonNumber.innerHTML = "";
+  // o que demora é o fetch, então colocamos um load enquanto carrega
+
   const data = await fetchPokemon(pokemon);
   // Variavel para receber os dados do pokemon
 
-  pokemonNumber.innerHTML = data.id;
-  pokemonName.innerHTML = data.name;
-  // Atribuindo o valor coletado as variaveis e levando para o front
-  pokemonImage.src =
-    data["sprites"]["versions"]["generation-v"]["black-white"]["animated"][
-      "front_default"
-    ];
-  // pegando o gif do pokemon, ne caso estamos usando colchete mas podemos usar ponto tambem
+  if (data) {
+    pokemonImage.style.display = "block";
+    pokemonNumber.innerHTML = data.id;
+    pokemonName.innerHTML = data.name;
+    // Atribuindo o valor coletado as variaveis e levando para o front
+    pokemonImage.src =
+      data["sprites"]["versions"]["generation-v"]["black-white"]["animated"][
+        "front_default"
+      ];
+    // pegando o gif do pokemon, ne caso estamos usando colchete mas podemos usar ponto tambem
+  } else {
+    pokemonName.innerHTML = "Not found 😞";
+    pokemonNumber.innerHTML = "0";
+    pokemonImage.style.display = "none";
+    // se o pokemon não existir
+  }
 
   searchPokemon.value = "";
   // limpando o campo de input
@@ -49,3 +67,15 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   renderPokemon(searchPokemon.value);
 });
+
+nextButton.addEventListener("click", (e) => {
+  renderPokemon((parseInt(pokemonNumber.innerHTML) + 1).toString());
+});
+
+prevButton.addEventListener("click", (e) => {
+  if (parseInt(pokemonNumber.innerHTML) > 1) {
+    renderPokemon((parseInt(pokemonNumber.innerHTML) - 1).toString());
+  }
+});
+
+renderPokemon("1");
