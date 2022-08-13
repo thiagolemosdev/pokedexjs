@@ -1,7 +1,7 @@
-# Calculadora
+# Pokédex
 
 <p align="center">
-  <img alt="Calculadora" src=".github/desktop.png">
+  <img alt="Pokedex" src=".github/desktop.png">
   <!-- <img alt="Calculadora" src=".github/mobile.png"> -->
 </p>
 
@@ -21,7 +21,7 @@
 
 ## ✍ Short Description
 
-This is a basic calculator maked using html, css and javascript. The principal learn about this project was how to use a Factory function and constructor function.
+This project is a simple pokedex, you can to see all pokemons here. The principal learn about this project was how to use a Fetch metod to consume API's.
 
 ## 🧪 Technologies
 
@@ -59,7 +59,7 @@ You can view the project through the links below:
 
 ## 🚧 Projeto:
 
-Construction yet
+Construction
 
 <!-- ## 🎨 Inspiração:
 
